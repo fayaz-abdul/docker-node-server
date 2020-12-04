@@ -5,15 +5,15 @@ phases:
       - "echo Build started on `date`"
       - "echo Building the Docker image..."
       - "docker build -t dvohra/node-server ."
-      - "docker tag dvohra/node-server dvohra/node-server:latest"
+      - "docker tag node-server:latest 152325064431.dkr.ecr.ap-south-1.amazonaws.com/node-server:latest"
   post_build: 
     commands: 
       - "echo Build completed on `date`"
       - "echo Pushing the Docker image..."
-      - "docker push dvohra/node-server:latest"
+      - "docker push 152325064431.dkr.ecr.ap-south-1.amazonaws.com/node-server:latest"
   pre_build: 
     commands: 
-      - "echo Logging in to Docker Hub..."
-      - "docker login --username=\"dvohra\" --password=\"password\""
+      - "echo Logging in to ECR"
+      - "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 152325064431.dkr.ecr.ap-south-1.amazonaws.com"
 version: 0.1
 
